@@ -62,8 +62,8 @@ int main(int argc, char *argv[]) {
 	int i, j;
 /*for(i=0; i<64; printf("0x%02x, ", PI[i++]));
 printf("\n");*/
-for(i=0; i<64; printf("0x%02x, ", PF[i++]));
-printf("\n");
+//for(i=0; i<64; printf("0x%02x, ", PF[i++]));
+//printf("\n");
 /*for(i=0; i<4; i++) {
 	for(j=0; j<16; printf("0x%02x, ", SB[i][j++]));
 	printf("\n");
