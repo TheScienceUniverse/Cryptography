@@ -1,0 +1,36 @@
+PROGRAM:
+	DES (Data Encryption Algorithm)
+PROPERTY:
+	LANGUAGE: C (.c, .h), Shell (.sh)
+	SOFTWARE: Ubuntu (Operating System), Terminal (Platform)
+COMMUNICATION:
+	I/P: 64 bits, O/P: 64 bits
+ARCHITECTURE:
+	MEMORY:
+		TABLES:
+			IP[64] => initial permutaion
+			FP[64] => final permutation
+			EB[48] => expansion box
+			SB[8][4][16] => substitution box (pallet: 8, row: 4, column: 16)
+		VARIABLES:
+			_cB => collapsed bits
+			_eB[8] => expanded byte
+			_X[64] => process stream block
+	FUNCTIONS:
+
+
+WORKFLOW:
+	COMPLETE code
+	COMPILE code
+	RUN program
+	+------- SET tables
+	+------- CALL Main () ()
+	|	+------- GET P[8]
+	|	+------- GET K[8]
+	|	+------- CALL "encrypt_des (P, K) (NULL)"
+	|	|	+------- 16 ROUNDS: CALL "fiestal_round (P, K) ()"
+	|	|	|	|	+------- 
+	|	+------- SHOW output
+	|	+------- CALL "decrypt_des (P, K) (NULL)"
+	|	+------- SHOW output
+	+------- GET return
