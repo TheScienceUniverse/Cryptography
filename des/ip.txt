@@ -1,0 +1,4 @@
+Hello, World!
+How are You.
+It's Good to see You.
+We are about to do DES (Data Encryption Algorithm).
