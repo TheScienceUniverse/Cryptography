@@ -1,0 +1,7 @@
+# m-Crypton
+Implement &amp; Test security level on m-Crypton(miniature of Crypton Block-Cipher)
+Insert .h files into preferable directory...
+$ cd ~/CURRENT-DIRECTORY/m-Crypton/[ENTER]
+$ cc -Wall -o M main.c[ENTER]
+$ ./M[ENTER]
+***...DO REST JOBS...***
