@@ -1,4 +1,7 @@
-#read -p "Enter Image File_Name: " img
-echo Running...
-go run main.go $img
+echo "Compiling..."
+gcc byte.c
+echo "Running..."
+./a.out
+echo "Deleting..."
+rm a.out
 echo Done.
