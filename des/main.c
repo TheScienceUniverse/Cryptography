@@ -69,9 +69,9 @@ int main(int argc, char *argv[]) {
 			break;
 		e_des(X, K);
 		// Tricking
-		for(i = 0; i < 8; i++) {
+		/*for(i = 0; i < 8; i++) {
 			X[i] = 'A' + (X[i] % 26);
-		}
+		}*/
 		printf("C: ");
 		showArr(X, 8);
 		fwrite(X, 8, 1, fpo);
