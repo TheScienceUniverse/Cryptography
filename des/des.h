@@ -10,7 +10,7 @@ void iniPermute(void), finPermute(void);
 void e_des(BYTE P[], BYTE K[]) {
 	int i, j;
 
-	printf("Received P and K (8*8)\n");
+	//printf("Received P and K (8*8)\n");
 
 //	printf("Expanding Key-Text => 8*8 --> 1 * 64\n");
 	for(i = 0; i < 8; i++) {
@@ -62,7 +62,7 @@ void e_des(BYTE P[], BYTE K[]) {
 		bits_to_byte(8);
 		P[i] = _cB;
 	}
-	printf("Encryption Done\n");
+	//printf("Encryption Done\n");
 }
 
 // Feistal Round
