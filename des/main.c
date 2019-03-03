@@ -65,8 +65,6 @@ int main(int argc, char *argv[]) {
 		printf("Index = %ld\n", f_ic);
 		printf("P: ");
 		showArr(X, 8);
-		if(s == 0)
-			break;
 		e_des(X, K);
 		// Tricking
 		/*for(i = 0; i < 8; i++) {
@@ -75,6 +73,9 @@ int main(int argc, char *argv[]) {
 		printf("C: ");
 		showArr(X, 8);
 		fwrite(X, 8, 1, fpo);
+		if(s == 0)
+			break;
+
 	} while(f_ic < f_sz);
 
 
