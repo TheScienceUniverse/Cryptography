@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
 	int j;
 	size_t s;
 	for(i = 0; i < nB; i++) {
-		printf("Hashing Block: %d\n", i + 1);
+		printf("Hashing Block: %d...", i + 1);
 		for(j = 0; j < 16; j++) {
 			s = fread(&X[j], 4, 1, fpi);
 		}
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
 		hash(X);
 		// printf("H: ");
 		// showArr(_H, 8);
-		printf("done!\n");
+		printf("\tDone!\n");
 	}
 
 	printf("H: ");
