@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdint.h>
 
 #include "data.h"
@@ -11,86 +12,73 @@ int main(int argc, char *argv[]) {
 		perror("Missing Input File\n");
 		exit(1);
 	}
-	FILE *fpi = fopen(argv[1], "r");
+	// system(strcat(strcat("cp ", argv[1]), " ip.bin"));
+	FILE *fpi = fopen(argv[1], "rb+");
 	if(fpi == NULL) {
 		perror("Input File Openning ERROR\n");
 		exit(1);
 	}
-/*	FILE *fpo = fopen("op.txt", "w+");
+
+	FILE *fpo = fopen("op.txt", "wb+");
 	if(fpo == NULL) {
 		perror("Output File Openning ERROR\n");
 		exit(1);
 	}
-*/
-/*	fseek(fpi, 1, SEEK_END);
-	long f_ic = 0;		// File Index Counter
+
+	fseek(fpi, 1, SEEK_END);
+	unsigned long f_ic = 0;		// File Index Counter
 	long f_sz = ftell(fpi);	// File SiZe
-	rewind(fpi);
 	printf("File Size: %ld bytes.\n", f_sz);
-*/
-//	BYTE x;
-	UINT X[16];
-	int i;
-	for(i = 0; i < 16; i++) {
-		X[i] = i;
+
+	int i;	// Secondary Iterator
+	int nR = f_sz % 64;	// Number of Ratio
+	int nB = f_sz / 64;	// Number of Blocks
+	int n;
+
+	BYTE x = 0x80;
+	if(nR < 56) {
+		n = 55 - nR;
+		nB += 1;
+	} else {
+		n = (63 - nR) + 56;
+		nB += 2;
 	}
-	printf("X[16]: ");
-	showArr(X, 16);
+	fwrite(&x, 1, 1, fpi);
+	x = 0x00;
+	for(i = 0; i < n; i++) {
+		fwrite(&x, 1, 1, fpi);
+	}
+	fwrite(&f_sz, 8, 1, fpi);
+	printf("n = %d, nB = %d\n", n, nB);
+	rewind(fpi);	// get back the pointer to base
 
-	hash(X, 16);
+	UINT X[16];
+	clearArr(X, 16);
 
-/*	BYTE K[8] = {'P', 'A', 'S', 'S', 'W', 'O', 'R', 'D'};
+	int j;
 	size_t s;
-
-	int i, c = 0;
-*/
-/*
-	do {
-		clearArr(X, 16);
-		for(i = 0; i < 8; i++) {
-			s = fread(&x, 1, 1, fpi);
-			if(s == 1) {
-				++f_ic;
-				X[i] = x;
-			} else {
-				break;
-			}
+	for(i = 0; i < nB; i++) {
+		printf("Hashing Block: %d\n", i + 1);
+		for(j = 0; j < 16; j++) {
+			s = fread(&X[j], 4, 1, fpi);
 		}
-		printf("Index = %ld\n", f_ic);
-		printf("P: ");
-		showArr(X, 8);
-		if(s == 0)
-			break;
-//		sha1(X, K);
-		// Tricking
-		for(i = 0; i < 8; i++) {
-			X[i] = 'A' + (X[i] % 26);
-		}
-		//printf("C: ");
-		//showArr(X, 8);
-		//fwrite(X, 8, 1, fpo);
-	} while(f_ic < f_sz);
-*/
+		// printf("X: ");
+		// showArr(X, 16);
+		hash(X);
+		// printf("H: ");
+		// showArr(_H, 5);
+		printf("done!\n");
+	}
 
-//	size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-//	size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
+	printf("H: ");
+	showArr(_H, 5);
 
+	for(i = 0; i < 5; i++) {
+		s = fwrite(&_H[i], 4, 1, fpo);
+	}
 
-/*
-	BYTE P[8] = {'H', 'E', 'L', 'L', 'O', '!', 0, 0};
-	BYTE K[8] = {'P', 'A', 'S', 'S', 'W', 'O', 'R', 'D'};
-	printf("Hello from Data Encryption Algorithm\n");
-printf("P[8]: ");
-	showArr(P, 8);
-printf("K[8]: ");
-	showArr(K, 8);
-
-	e_des(P, K);
-//	d_des(C, K);
-printf("C[8]: ");
-	showArr(P, 8);
-*/
 	fclose(fpi);
-//	fclose(fpo);
+	fclose(fpo);
+	// system("rm ip.bin");
 	return 0;
 }

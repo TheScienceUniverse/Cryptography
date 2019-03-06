@@ -1,7 +1,7 @@
 #ifndef _SHA1_H
 #define _SHA1_H
 
-void hash(UINT *X, int ml) {
+void hash(UINT *X) {
 	// Break into 16 words of 32 bits
 	int i;
 	for(i = 0; i < 16; i++) {
@@ -52,8 +52,8 @@ void hash(UINT *X, int ml) {
 	_H[3] += d;
 	_H[4] += e;
 
-	printf("_H[5]: ");
-	showArr(_H, 5);
+	// printf("_H[5]: ");
+	// showArr(_H, 5);
 
 	// printf("_W[80]: ");
 	// showArr(_W, 80);
